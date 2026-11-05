@@ -21,6 +21,8 @@ function wysiwyg_ace_ace_editor() {
 				'files' => array(
 					'build/src-min-noconflict/ace.js',
 					'build/src-min-noconflict/keybinding-emacs.js',
+					'build/src-min-noconflict/mode-latex.js',
+					'build/src-min-noconflict/theme-textmate.js',
 					),
 				),
 			),
@@ -74,7 +76,7 @@ function wysiwyg_ace_ace_themes($editor, $profile) {
 	$plugin_path = drupal_get_path("module", "wysiwyg_ace");
 	drupal_add_css($plugin_path."/css/ace.css", 
 		array(
-			"type" => "internal"
+			"type" => "file",
 			));
 	drupal_add_css($plugin_path."/editors/js/select_widget.css", array("type"=>"internal"));
 
@@ -135,8 +137,8 @@ function wysiwyg_ace_ace_settings($editor, $config, $theme) {
 		}
 		$settings["enabled"] = $result;				
 	}
-	$settings["piwik_url"] = variable_get('piwik_url_http', '');
-	$settings["piwik_id"] = variable_get('piwik_site_id', '');
+	global $user;
+	$settings["sid"] = $user->sid;
 	return $settings;
 }
 
